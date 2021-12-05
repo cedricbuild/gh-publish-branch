@@ -1,0 +1,16 @@
+on: [push]
+
+jobs:
+  publish-directory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir build
+          echo "<html><title> github actions publish </title></html>" > index.html
+      - uses: ./
+        with:
+          repo_name: ${{ github.repository }}
+          branch: gh-pages
+          directory: ${{ github.workspace }}/build
+          commit_message: "publish directory to branch"
